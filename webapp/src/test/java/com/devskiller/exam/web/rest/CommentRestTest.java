@@ -54,7 +54,7 @@ public class CommentRestTest {
         // given
         List<CommentDto> comments = new ArrayList<CommentDto>();
         Date creationDate = new Date();
-        comments.add(new CommentDto(2L, "comment content", "John Smith", creationDate));
+        comments.add(new CommentDto(2L, "John Smith", "comment content", creationDate));
 
         // when
         when(commentService.getCommentsForPost(1L)).thenReturn(comments);
@@ -64,8 +64,8 @@ public class CommentRestTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(2)))
-                .andExpect(jsonPath("$[0].comment", is("comment content")))
                 .andExpect(jsonPath("$[0].author", is("John Smith")))
+                .andExpect(jsonPath("$[0].comment", is("comment content")))
                 .andExpect(jsonPath("$[0].creationDate", is(creationDate.getTime())));
 
     }
@@ -74,6 +74,7 @@ public class CommentRestTest {
 
         // given
         NewCommentDto newComment = createComment("Test content", "John Doe");
+        newComment.setPostId(1L);
 
         // when
         when(commentService.addComment(newComment)).thenReturn(1L);

@@ -6,16 +6,16 @@ public class CommentDto {
 
     private Long id;
 
-    private String comment;
-
     private String author;
+
+    private String comment;
 
     private Date creationDate;
 
-    public CommentDto(Long id, String comment, String author, Date creationDate) {
+    public CommentDto(Long id, String author, String comment, Date creationDate) {
         this.id = id;
-        this.comment = comment;
         this.author = author;
+        this.comment = comment;
         this.creationDate = creationDate;
     }
 
